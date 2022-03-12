@@ -1,0 +1,24 @@
+<%- include('head'); -%>
+
+<div class="container-fluid">
+  <div class="row">
+    <%- include('sidenav'); -%>
+    <div class="col-sm-10">
+      <h1><%= title %></h1>
+      <ul>
+        <% if(author_list.length > 0) { %> <% for (let i = 0; i <
+        author_list.length; i++) { %>
+        <li>
+          <a href="<%=author_list[i].url%>"><%=author_list[i].name%></a> (<%=
+          author_list[i].date_of_birth_formatted %> - <%=
+          author_list[i].date_of_death_formatted %>)
+        </li>
+        <% } %> <% }else {%>
+        <li>There are no books</li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%- include('footer'); -%>
