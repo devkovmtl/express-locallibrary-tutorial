@@ -7,3 +7,4 @@
 - [ExpressJS Generator](https://expressjs.com/fr/starter/generator.html)
 - [EJS](https://ejs.co/)
 - [Mongoose](https://mongoosejs.com/docs/guide.html)
+- [luxon](https://www.npmjs.com/package/luxon)
