@@ -1,0 +1,41 @@
+<%- include('head'); -%>
+
+<div class="container-fluid">
+  <div class="row">
+    <%- include('sidenav'); -%>
+    <div class="col-sm-10">
+      <h1>Title: <%= book.title %></h1>
+
+      <p>
+        <strong>Author: </strong>
+        <a href="<%=book.author.url%>"><%=book.author.url%></a>
+      </p>
+      <p><strong>Summary: </strong><%=book.summary%></p>
+      <p><strong>ISBN: </strong><%=book.isbn%></p>
+
+      <div style="margin-left: 20px; margin-top: 20px">
+        <h4>Copies</h4>
+        <%for (let i =0; i < book_instances.length; i++) {%>
+        <hr />
+        <% if (book_instances[i].status === 'Available') { %>
+        <p class="text-success"><%=book_instances[i].status%></p>
+        <% } else if(book_instances[i].status === 'Maintenance') { %>
+        <p class="text-danger"><%=book_instances[i].status%></p>
+        <% } else {%>
+        <p class="text-warning"><%=book_instances[i].status%></p>
+        <%}%>
+        <p><strong>Imprint: </strong><%=book_instances[i].imprint%></p>
+        <%if (book_instances[i].status != 'Available') {%>
+        <p><strong>Due back: </strong>book_instances[i].due_back</p>
+        <% } %>
+        <p>
+          <strong>Id:</strong>
+          <a href="<%=book_instances[i].url%>"><%=book_instances[i]._id%></a>
+        </p>
+        <%}%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('footer'); -%>
