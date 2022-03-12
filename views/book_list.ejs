@@ -1,0 +1,23 @@
+<%- include('head'); -%>
+
+<div class="container-fluid">
+  <div class="row">
+    <%- include('sidenav'); -%>
+    <div class="col-sm-10">
+      <h1><%= title %></h1>
+      <ul>
+        <% if(book_list.length > 0) { %> <% for (let i = 0; i <
+        book_list.length; i++) { %>
+        <li>
+          <a href="<%=book_list[i].url%>"><%=book_list[i].title%></a> (<%=
+          book_list[i].author.name %>)
+        </li>
+        <% } %> <% }else {%>
+        <li>There are no books</li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%- include('footer'); -%>
