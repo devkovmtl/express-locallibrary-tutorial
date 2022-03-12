@@ -1,0 +1,22 @@
+<%- include('head'); -%>
+
+<div class="container-fluid">
+  <div class="row">
+    <%- include('sidenav'); -%>
+    <div class="col-sm-10">
+      <h1><%= title %></h1>
+      <ul>
+        <% if(genre_list.length > 0) { %> <% for (let i = 0; i <
+        genre_list.length; i++) { %>
+        <li>
+          <a href="<%=genre_list[i].url%>"><%=genre_list[i].name%></a>
+        </li>
+        <% } %> <% }else {%>
+        <li>There are no genre</li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<%- include('footer'); -%>
