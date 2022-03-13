@@ -1,0 +1,27 @@
+<%- include('head'); -%>
+
+<div class="container-fluid">
+  <div class="row">
+    <%- include('sidenav'); -%>
+    <div class="col-sm-10">
+      <h1>Author: <%= author.name %></h1>
+      <p>
+        <%= author.date_of_birth_formatted %> - <%=
+        author.date_of_death_formatted %>
+      </p>
+      <div class="margin-left:20px; margin-top:20px">
+        <h4>Books</h4>
+        <dl>
+          <% for(let i = 0; i < author_books.length; i++) { %>
+          <dt>
+            <a href="<%=author_books[i].url%>"><%=author_books[i].title%></a>
+          </dt>
+          <dd><%= author_books[i].book.summary%></dd>
+          <% } %>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('footer'); -%>
