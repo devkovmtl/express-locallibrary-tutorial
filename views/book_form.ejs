@@ -29,13 +29,14 @@
             required
           >
             <% for (let i = 0; i < authors.length; i++) { %> <% if (book) { %>
+            <%if (book) {%>
             <option
               value="<%=authors[i]._id%>"
               selected="<%= authors[i]._id.toString() == book.author._id.toString() ? 'selected': false %>"
             >
               <%= authors[i].name %>
             </option>
-            <% } else {%>
+            <% } %> <% } else {%>
             <option value="<%=authors[i]._id%>"><%= authors[i].name %></option>
             <% } %> <% } %>
           </select>

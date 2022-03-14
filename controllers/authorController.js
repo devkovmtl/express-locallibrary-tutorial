@@ -1,5 +1,6 @@
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const Author = require('../models/author');
 const Book = require('../models/book');
@@ -42,7 +43,7 @@ exports.author_detail = function (req, res, next) {
       res.render('author_detail', {
         title: 'Author Detail',
         author: results.author,
-        author_books: results.authors_books,
+        authors_books: results.authors_books,
       });
     }
   );
@@ -115,13 +116,74 @@ exports.author_create_post = [
 ];
 
 // Display Author delete form on GET.
-exports.author_delete_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Author delete GET');
+exports.author_delete_get = function (req, res, next) {
+  async.parallel(
+    {
+      author: function (callback) {
+        Author.findById(mongoose.Types.ObjectId(req.params.id)).exec(callback);
+      },
+      authors_books: function (callback) {
+        Book.find({ author: mongoose.Types.ObjectId(req.params.id) }).exec(
+          callback
+        );
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.author === null) {
+        res.redirect('/catalog/authors');
+      }
+      res.render('author_delete', {
+        title: 'Delete Author',
+        author: results.author,
+        authors_books: results.authors_books,
+        errors: null,
+      });
+    }
+  );
 };
 
 // Handle Author delete on POST.
-exports.author_delete_post = function (req, res) {
-  res.send('NOT IMPLEMENTED: Author delete POST');
+exports.author_delete_post = function (req, res, next) {
+  async.parallel(
+    {
+      author: function (callback) {
+        Author.findById(mongoose.Types.ObjectId(req.body.authorid)).exec(
+          callback
+        );
+      },
+      authors_books: function (callback) {
+        Book.find({ author: mongoose.Types.ObjectId(req.body.authorid) }).exec(
+          callback
+        );
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.authors_books.length > 0) {
+        res.render('author_delete', {
+          title: 'Delete Author',
+          author: results.author,
+          authors_books: results.authors_books,
+        });
+        return;
+      } else {
+        Author.findByIdAndRemove(
+          mongoose.Types.ObjectId(req.body.authorid),
+          function deleteAuthor(err) {
+            if (err) {
+              return next(err);
+            }
+            res.redirect('/catalog/authors');
+          }
+        );
+      }
+    }
+  );
 };
 
 // Display Author update form on GET.

@@ -12,13 +12,17 @@
       <div class="margin-left:20px; margin-top:20px">
         <h4>Books</h4>
         <dl>
-          <% for(let i = 0; i < author_books.length; i++) { %>
+          <% for(let i = 0; i < authors_books.length; i++) { %>
           <dt>
-            <a href="<%=author_books[i].url%>"><%=author_books[i].title%></a>
+            <a href="<%=authors_books[i].url%>"><%=authors_books[i].title%></a>
           </dt>
-          <dd><%= author_books[i].book.summary%></dd>
+          <dd><%= authors_books[i].book.summary%></dd>
           <% } %>
         </dl>
+        <hr />
+        <p>
+          <a href="<%=author.url + '/delete' %>">Delete author</a>
+        </p>
       </div>
     </div>
   </div>
