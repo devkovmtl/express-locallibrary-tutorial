@@ -5,6 +5,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_DATABASE } =
   process.env;
@@ -28,6 +30,8 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const app = express();
+app.use(compression); // compress all routes
+app.use(helmet);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
